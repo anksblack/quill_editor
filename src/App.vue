@@ -27,8 +27,8 @@
 
     <!-- Transfer buttons -->
     <div class="transfer-buttons">
-      <button @click="transferToEditor">↩</button>
-      <button @click="transferFromEditor">➔</button>
+      <button @click="transferToEditor">⬅</button>
+      <button @click="transferFromEditor">➡</button>
     </div>
 
     <!-- External content -->
@@ -178,12 +178,11 @@ const addCitations = () => {
 const removeCitationLinks = (container) => {
   const links = container.querySelectorAll('a');
   links.forEach(link => {
-    if (link.textContent.trim() === "Download PDF") {
-      // Remove the entire link element.
-      link.remove();
-    }
+    const textNode = document.createTextNode(link.textContent); // Extract the text
+    link.parentNode.replaceChild(textNode, link); // Replace the link with text
   });
-}
+};
+
 
 // Export editor content to PDF using html2canvas and jsPDF.
 const exportToPdf = async () => {
@@ -316,21 +315,6 @@ body {
   box-sizing: border-box;
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 .editor-header {
   padding: 10px;
   background: white;
@@ -391,34 +375,6 @@ body {
   border-radius: 10px;
   border: 2px solid #e0e0e0;
 }
-
-.external-content h1 {
-  color: #1a237e;
-  margin: 0;
-  font-size: 28px;
-  border-bottom: 2px solid #4f46e5;
-  padding-bottom: 8px;
-}
-
-.external-content h2 {
-  color: #2d3748;
-  margin: 15px 0 10px;
-  font-size: 22px;
-}
-
-.external-content h4 {
-  color: #4a5568;
-  line-height: 1.7;
-  margin: 10px 0;
-  font-weight: 400;
-}
-
-.external-content p {
-  padding: 6px;
-  border-radius: 6px;
-  margin: 8px 0;
-}
-
 .external-widget .card {
   padding: 20px;
   border: 2px dashed #c7d2fe;
